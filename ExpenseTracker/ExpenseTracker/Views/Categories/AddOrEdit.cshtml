@@ -1,0 +1,53 @@
+﻿@model Expense_Tracker.Models.Category
+
+@{
+    ViewData["Title"] = Model.CategoryId == 0 ? "Create New Transaction" : "Edit Transaction";
+}
+
+<h1 class="mb-4">Create Category</h1>
+
+<div class="card shadow p-4">
+    <h4 class="mb-3 text-primary">Category Details</h4>
+    <form asp-action="AddOrEdit">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="CategoryId" />
+
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Type</label>
+            <div class="e-btn-group">
+                <input type="radio" id="radioExpense" name="Type" value="Expense" @(Model?.Type == "Expense" ? "checked" : "") />
+                <label class="e-btn" for="radioExpense">Expense</label>
+                <input type="radio" id="radioIncome" name="Type" value="Income" @(Model?.Type == "Income" ? "checked" : "") />
+                <label class="e-btn" for="radioIncome">Income</label>
+            </div>
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label fw-bold"></label>
+            <ejs-textbox id="Title" name="Title" placeholder="Enter title" value="@Model?.Title" floatLabelType="Auto" cssClass="form-control"></ejs-textbox>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Icon" class="form-label fw-bold"></label>
+            <ejs-textbox id="Icon" name="Icon" placeholder="Enter icon (e.g., shopping_cart)" value="@Model?.Icon" floatLabelType="Auto" cssClass="form-control"></ejs-textbox>
+            <span asp-validation-for="Icon" class="text-danger"></span>
+        </div>
+
+        <div class="text-end">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-outline-secondary">← Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

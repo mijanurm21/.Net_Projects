@@ -1,0 +1,22 @@
+﻿
+@model IEnumerable<ProductPage.Models.Product>
+@{
+    ViewData["Title"] = "Product";
+}
+
+<h1>Product</h1>
+
+
+
+
+<div class="Card">
+    <div class="row">
+        @foreach(var item in Model)
+        {
+            <div class="col-md-4">
+                <partial name="_ProductsView" model="item" />
+            </div>
+            
+        }
+    </div>
+</div>

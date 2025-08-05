@@ -1,0 +1,65 @@
+﻿@model Expense_Tracker.Models.Transaction
+
+@{
+    ViewData["Title"] = Model.TransactionId == 0 ? "Create New Entry" : "Edit Entry";
+}
+
+<h1 class="mb-4">@ViewData["Title"]</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4">
+                <form asp-action="AddOrEdit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- Category Dropdown -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Category</label>
+                        <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "CategoryId", "Title"))"
+                                class="form-select border-secondary rounded-3">
+                            <option value="">-- Choose a Category --</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="mb-3">
+                        <label asp-for="Amount" class="form-label fw-semibold"></label>
+                        <input asp-for="Amount" class="form-control border-secondary rounded-3" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+
+                    <!-- Note -->
+                    <div class="mb-3">
+                        <label asp-for="Note" class="form-label fw-semibold"></label>
+                        <input asp-for="Note" class="form-control border-secondary rounded-3" />
+                        <span asp-validation-for="Note" class="text-danger"></span>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="mb-3">
+                        <label asp-for="Date" class="form-label fw-semibold"></label>
+                        <input asp-for="Date" class="form-control border-secondary rounded-3" type="date" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid">
+                        <input type="submit" value="@ViewData["Title"]" class="btn btn-primary rounded-3 fw-semibold" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <a asp-action="Index" class="text-decoration-none text-secondary">← Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
